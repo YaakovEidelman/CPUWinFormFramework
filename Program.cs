@@ -1,4 +1,4 @@
-namespace CPUWinFormFramwork
+namespace CPUWinFormFramework
 {
     internal static class Program
     {

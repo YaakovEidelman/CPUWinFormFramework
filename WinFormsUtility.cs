@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace CPUWinFormFramwork
+namespace CPUWinFormFramework
 {
     public class WinFormsUtility
     {
