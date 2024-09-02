@@ -1,17 +1,18 @@
 ﻿using System.Data;
-using System.DirectoryServices.ActiveDirectory;
-using System.Xml.Linq;
 
 namespace CPUWinFormFramework
 {
     public class WinFormsUtility
     {
-        public static void SetListBinding(ComboBox lst, DataTable dtDisplay, DataTable dtBinding, string valuemember)
+        public static void SetListBinding(ComboBox lst, DataTable dtDisplay, DataTable? dtBinding, string valuemember)
         {
             lst.DataSource = dtDisplay;
-            lst.ValueMember = valuemember;
+            lst.ValueMember = valuemember + "Id";
             lst.DisplayMember = lst.Name.Substring(3);
-            lst.DataBindings.Add("SelectedValue", dtBinding, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            if (dtBinding != null)
+            {
+                lst.DataBindings.Add("SelectedValue", dtBinding, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+            }
         }
         public static void SetControlBinding(Control ctrl, BindingSource bindsource)
         {
@@ -54,7 +55,7 @@ namespace CPUWinFormFramework
         {
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.RowHeadersWidth = 25;
-            string pkname = tablename + "id";
+            string pkname = tablename + "Id";
             foreach (DataGridViewColumn c in grid.Columns)
             {
                 if (c.Name.EndsWith("Id"))
@@ -81,6 +82,15 @@ namespace CPUWinFormFramework
             return id;
         }
 
+        public static int GetIdFromComboBox(ComboBox lst)
+        {
+            int value = 0;
+            if (lst.SelectedValue != null && lst.SelectedValue is int)
+            {
+                value = (int)lst.SelectedValue;
+            }
+            return value;
+        }
         public static void AddComboBoxToGrid(DataGridView grid, DataTable datasource, string tablename, string displaymember)
         {
             DataGridViewComboBoxColumn c = new();
