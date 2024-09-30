@@ -146,6 +146,8 @@ namespace CPUWinFormFramework
             }
         }
 
+
+
         private static void Btn_Click(object? sender, EventArgs e)
         {
             if (sender != null && sender is ToolStripButton)
@@ -155,6 +157,38 @@ namespace CPUWinFormFramework
                 {
                     ((Form)btn.Tag).Activate();
                 }
+            }
+        }
+
+
+
+
+
+        public static void ReplaceLettersWithBlanks(TextBox t, bool AllowDecimal = true)
+        {
+            if (t.Text.Length > 0)
+            {
+                string currenttext = t.Text;
+                string finaltext = new string(currenttext.Where(c => char.IsDigit(c) || (AllowDecimal && c == '.')).ToArray());
+
+                if(AllowDecimal && finaltext.Count(c => c == '.') > 1)
+                {
+                    MessageBox.Show("You cannot enter more than one decimal into this field.", Application.ProductName);
+                    int i = finaltext.IndexOf('.');
+                    finaltext = finaltext.Substring(0, i + 1) + finaltext.Substring(i + 1).Replace(".", "");
+                }
+
+                else if (finaltext != currenttext)
+                {
+                    MessageBox.Show("You must enter a valid character.", Application.ProductName);
+                }
+
+                if(finaltext.StartsWith("."))
+                {
+                    finaltext = "0" + finaltext;
+                }
+                t.Text = finaltext;
+                t.SelectionStart = t.TextLength;
             }
         }
 
