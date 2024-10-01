@@ -4,6 +4,13 @@ namespace CPUWinFormFramework
 {
     public class WinFormsUtility
     {
+        public static void SetListBindingWithSource(ComboBox lst, DataTable dtDisplay, BindingSource bs, string valuemember)
+        {
+            lst.DataSource = dtDisplay;
+            lst.ValueMember = valuemember + "Id";
+            lst.DisplayMember = lst.Name.Substring(3);
+            lst.DataBindings.Add("SelectedValue", bs, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
+        }
         public static void SetListBinding(ComboBox lst, DataTable dtDisplay, DataTable? dtBinding, string valuemember)
         {
             lst.DataSource = dtDisplay;
