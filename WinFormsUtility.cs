@@ -187,7 +187,7 @@ namespace CPUWinFormFramework
 
                 else if (finaltext != currenttext)
                 {
-                    MessageBox.Show("You must enter a valid character.", Application.ProductName);
+                    MessageBox.Show("You must enter a valid number.", Application.ProductName);
                 }
 
                 if(finaltext.StartsWith("."))
